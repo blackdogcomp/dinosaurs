@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מסע אל העבר – דינוזאורים וחיות קדומות</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --deep:#0b3c5d; --sea:#1d6f8f; --teal:#2a9d8f; --green:#3fa34d; --mint:#e8f6f0; --ink:#12313f;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{
+    font-family:"Rubik", "Arial Hebrew", Arial, sans-serif;
+    color:var(--ink);
+    background:linear-gradient(160deg,var(--deep) 0%,var(--sea) 45%,var(--teal) 75%,var(--green) 100%);
+    background-attachment:fixed;
+    display:flex;flex-direction:column;align-items:center;
+    padding:22px 14px 40px;
+  }
+  h1{margin:4px 0 4px;font-size:clamp(28px,6vw,46px);color:#fff;font-weight:700;text-align:center;letter-spacing:.5px}
+  .sub{color:#bfe9dd;margin:0 0 18px;font-size:18px;text-align:center}
+  .card{
+    width:min(760px,100%);background:var(--mint);border-radius:20px;
+    box-shadow:0 18px 40px rgba(0,0,0,.3);overflow:hidden;
+  }
+  .pic{
+    position:relative;background:#0e2a38;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+  }
+  .pic img{width:100%;height:100%;object-fit:contain}
+  .placeholder{color:#9fd8cb;font-size:20px;text-align:center}
+  .placeholder span{display:block;font-size:72px;margin-bottom:8px}
+  .caption{position:absolute;bottom:0;right:0;left:0;padding:6px 12px;font-size:13px;
+    color:#e8f6f0;background:linear-gradient(transparent,rgba(0,0,0,.6))}
+  .caption a{color:#9fe3d2}
+  .body{padding:20px 24px 24px}
+  .name{font-size:clamp(28px,6vw,40px);margin:0 0 10px;color:var(--deep)}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .tag{padding:5px 13px;border-radius:999px;font-size:16px;color:#fff}
+  .t-era{background:var(--deep)}
+  .t-plant{background:var(--green)}
+  .t-meat{background:#1b5e7a}
+  .t-fish{background:#2b8fbf}
+  .t-mixed{background:var(--teal)}
+  .t-dino{background:#2e7d4f}
+  .t-not{background:#5b7f8f}
+  .facts{font-size:19px;line-height:1.7;margin:0;padding-right:22px}
+  .wow{margin-top:14px;background:#fff;border-right:6px solid var(--teal);border-radius:12px;padding:12px 16px;font-size:19px;line-height:1.6}
+  .wow h3{margin:0 0 4px;font-size:19px;color:var(--teal)}
+  .credit{margin-top:12px;font-size:14px;color:#4d6b75}
+  .credit a{color:var(--sea)}
+  button{
+    margin-top:22px;font-family:inherit;font-size:clamp(20px,4.5vw,26px);
+    background:#fff;color:var(--deep);border:none;border-radius:14px;
+    padding:12px 30px;cursor:pointer;box-shadow:0 6px 0 #9fd8cb;font-weight:700;
+    transition:transform .1s, box-shadow .1s;
+  }
+  button:hover{transform:translateY(-2px)}
+  button:active{transform:translateY(4px);box-shadow:0 2px 0 #9fd8cb}
+  .share{margin-top:14px;background:var(--green);color:#fff;box-shadow:0 6px 0 #1f6b2e;font-size:clamp(18px,4vw,22px)}
+  .share:active{box-shadow:0 2px 0 #1f6b2e}
+  /* הכול בעמוד אחד, בלי גלילה */
+  html,body{height:100%}
+  body{height:100vh;height:100dvh;overflow:hidden;padding:10px 12px 12px}
+  h1{font-size:clamp(22px,4.5vh,40px);margin:0}
+  .sub{font-size:clamp(13px,2vh,17px);margin:2px 0 8px}
+  .card{flex:1;min-height:0;display:flex;flex-direction:column;width:min(1100px,100%)}
+  .pic{aspect-ratio:auto;flex:1 1 50%;min-height:0}
+  .body{flex:0 1 auto;min-height:0;overflow:auto;padding:clamp(8px,1.6vh,18px) 20px}
+  .name{font-size:clamp(22px,4vh,36px);margin:0 0 6px}
+  .tag{font-size:clamp(12px,1.8vh,16px);padding:3px 11px}
+  .tags{margin-bottom:8px;gap:6px}
+  .facts{font-size:clamp(14px,2.2vh,19px);line-height:1.5}
+  .wow{font-size:clamp(14px,2.2vh,19px);line-height:1.5;margin-top:8px;padding:8px 14px}
+  .wow h3{font-size:clamp(14px,2.2vh,19px)}
+  .credit{margin-top:6px;font-size:13px}
+  .buttons{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  button{margin-top:0;font-size:clamp(16px,2.6vh,24px);padding:clamp(6px,1.3vh,12px) 26px}
+  /* מסך רחב: תמונה מימין, טקסט משמאל */
+  @media (min-aspect-ratio:5/4) and (min-width:760px){
+    .card{flex-direction:row}
+    .pic{flex:1.4 1 0}
+    .body{flex:1 1 0;display:flex;flex-direction:column;justify-content:center}
+  }
+  .search{position:relative;width:min(420px,100%);margin:0 auto 10px;z-index:5}
+  .search input{width:100%;font-family:inherit;font-size:clamp(15px,2.2vh,18px);padding:8px 16px;
+    border:none;border-radius:999px;background:#e8f6f0;color:var(--ink);outline:3px solid transparent}
+  .search input:focus{outline-color:#9fe3d2}
+  .results{position:absolute;top:calc(100% + 6px);right:0;left:0;margin:0;padding:6px;list-style:none;
+    background:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.3);max-height:50vh;overflow:auto}
+  .results li{padding:8px 12px;border-radius:10px;cursor:pointer;font-size:17px}
+  .results li:hover,.results li.active{background:#d9f2ea}
+  .results li.none{cursor:default;color:#5b7f8f}
+  .results li.none:hover{background:none}
+</style>
+</head>
+<body>
+<h1>מסע אל העבר</h1>
+<p class="sub">דינוזאורים וחיות קדומות – כל פעם אחת אחרת</p>
+<div class="search">
+  <input id="q" type="search" placeholder="🔍 חיפוש יצור לפי שם…" autocomplete="off">
+  <ul id="results" class="results" hidden></ul>
+</div>
+
+<div class="card">
+  <div class="pic" id="pic"></div>
+  <div class="body">
+    <h2 class="name" id="name"></h2>
+    <div class="tags" id="tags"></div>
+    <ul class="facts" id="facts"></ul>
+    <div class="wow" id="wow"></div>
+    <div class="credit" id="credit"></div>
+  </div>
+</div>
+
+<div class="buttons">
+<button id="next">עוד יצור ←</button>
+<button id="share" class="share">תרצה לשתף את תמיר ועינבר?</button>
+</div>
+
+<script>
+// wiki = שם הערך בוויקיפדיה האנגלית (ממנו נלקחת התמונה בלבד)
+// diet: plant / meat / fish   dino: true = דינוזאור, false = לא דינוזאור
+const ANIMALS = [
+ {wiki:"Tyrannosaurus", q:"Tyrannosaurus skeleton", where:"צפון אמריקה – ארצות הברית וקנדה", name:"טירנוזאורוס רקס", emoji:"🦖", dino:true, diet:"meat",
+  era:"לפני 68 מיליון שנה", size:"אורך: עד 13 מטר", weight:"משקל: כמו שני פילים",
+  wow:"השיניים שלו היו גדולות כמו בננות, והנשיכה שלו הייתה מהחזקות שהיו אי־פעם."},
+ {wiki:"Triceratops", q:"Triceratops skeleton", where:"צפון אמריקה", name:"טריצרטופס", emoji:"🦏", dino:true, diet:"plant",
+  era:"לפני 68 מיליון שנה", size:"אורך: עד 9 מטר", weight:"משקל: כמו פיל גדול",
+  wow:"השם שלו פירושו \"פנים עם שלוש קרניים\". מאחורי הראש היה לו מגן עצם ענק."},
+ {wiki:"Stegosaurus", q:"Stegosaurus skeleton", where:"ארצות הברית ופורטוגל", name:"סטגוזאורוס", emoji:"🦕", dino:true, diet:"plant",
+  era:"לפני 155 מיליון שנה", size:"אורך: עד 9 מטר", weight:"משקל: כמו מכונית גדולה",
+  wow:"על הגב היו לו לוחות גדולים, ובזנב ארבעה קוצים חדים להגנה. המוח שלו היה קטן בערך כמו שזיף!"},
+ {wiki:"Brachiosaurus", q:"Brachiosaurus skeleton", where:"ארצות הברית", name:"ברכיוזאורוס", emoji:"🦕", dino:true, diet:"plant",
+  era:"לפני 154 מיליון שנה", size:"גובה: כמו בניין של 4 קומות", weight:"משקל: כמו 8 פילים",
+  wow:"הרגליים הקדמיות שלו היו ארוכות מהאחוריות, כך שהוא יכול היה לאכול עלים מצמרות העצים הגבוהים."},
+ {wiki:"Velociraptor", q:"Velociraptor skeleton", where:"מונגוליה וסין", name:"ולוצירפטור", emoji:"🦃", dino:true, diet:"meat",
+  era:"לפני 75 מיליון שנה", size:"אורך: כ־2 מטר", weight:"משקל: כמו כלב בינוני",
+  wow:"הוא היה קטן בהרבה ממה שרואים בסרטים, בערך בגודל של תרנגול הודו, והיו לו נוצות!"},
+ {wiki:"Ankylosaurus", q:"Ankylosaurus skeleton", where:"צפון אמריקה", name:"אנקילוזאורוס", emoji:"🛡️", dino:true, diet:"plant",
+  era:"לפני 68 מיליון שנה", size:"אורך: עד 8 מטר", weight:"משקל: כמו פיל",
+  wow:"כל הגוף שלו היה מכוסה שריון, ובסוף הזנב הייתה לו אלה עשויה עצם."},
+ {wiki:"Spinosaurus", q:"Spinosaurus skeleton", where:"צפון אפריקה – מצרים ומרוקו", name:"ספינוזאורוס", emoji:"🐊", dino:true, diet:"fish",
+  era:"לפני 95 מיליון שנה", size:"אורך: עד 15 מטר", weight:"משקל: כמו שני פילים",
+  wow:"על הגב היה לו מפרש ענק. הוא חי ליד נהרות ואהב לאכול דגים."},
+ {wiki:"Parasaurolophus", q:"Parasaurolophus skeleton", where:"צפון אמריקה", name:"פרזאורולופוס", emoji:"🎺", dino:true, diet:"plant",
+  era:"לפני 76 מיליון שנה", size:"אורך: כ־10 מטר", weight:"משקל: כמו פיל קטן",
+  wow:"הייתה לו כרבולת ארוכה וחלולה על הראש, ואולי הוא השתמש בה כדי להשמיע קולות כמו חצוצרה."},
+ {wiki:"Pteranodon", q:"Pteranodon skeleton", where:"ארצות הברית", name:"פטרנודון", emoji:"🪽", dino:false, diet:"fish",
+  era:"לפני 85 מיליון שנה", size:"מוטת כנפיים: עד 7 מטר", weight:"משקל: קל, כמו ילד קטן",
+  wow:"הוא לא היה דינוזאור, אלא זוחל מעופף. לא היו לו שיניים בכלל, והוא בלע דגים שלמים."},
+ {wiki:"Diplodocus", q:"Diplodocus skeleton", where:"ארצות הברית", name:"דיפלודוקוס", emoji:"🦕", dino:true, diet:"plant",
+  era:"לפני 153 מיליון שנה", size:"אורך: עד 26 מטר", weight:"משקל: כמו 3 פילים",
+  wow:"הוא היה ארוך כמו שני אוטובוסים, והזנב שלו לבד היה ארוך יותר מאוטובוס!"},
+ {wiki:"Woolly mammoth", q:"Mammoth skeleton", where:"אירופה, אסיה וצפון אמריקה – גם קפואות בקרח של סיביר", name:"ממותה צמרית", emoji:"🦣", dino:false, diet:"plant",
+  era:"עד לפני 4,000 שנה בלבד", size:"גובה: כ־3 מטר", weight:"משקל: כמו פיל",
+  wow:"היא חיה בתקופת הקרח והייתה מכוסה פרווה עבה. בני אדם קדומים ראו ממותות בעיניים שלהם!"},
+ {wiki:"Smilodon", q:"Smilodon skeleton", where:"צפון ודרום אמריקה", name:"סמילודון – חתול שן החרב", emoji:"🐯", dino:false, diet:"meat",
+  era:"עד לפני 10,000 שנה", size:"אורך: כ־2 מטר", weight:"משקל: כמו אריה גדול",
+  wow:"שתי השיניים הקדמיות שלו היו באורך של עד 28 סנטימטר, כמו סרגל!"},
+ {wiki:"Mosasaurus", q:"Mosasaurus skeleton", where:"אירופה וצפון אמריקה – הראשון נמצא בהולנד", name:"מוזאזאורוס", emoji:"🌊", dino:false, diet:"meat",
+  era:"לפני 70 מיליון שנה", size:"אורך: עד 17 מטר", weight:"משקל: כמו 3 פילים",
+  wow:"זוחל ים ענק – לא דינוזאור. הוא היה המלך של הים ואכל דגים, צבים ואפילו זוחלי ים אחרים."},
+ {wiki:"Dimetrodon", q:"Dimetrodon skeleton", where:"ארצות הברית", name:"דימטרודון", emoji:"⛵", dino:false, diet:"meat",
+  era:"לפני 290 מיליון שנה", size:"אורך: עד 5 מטר", weight:"משקל: כמו אריה",
+  wow:"הוא חי עוד לפני שהיו דינוזאורים! הוא בכלל קרוב רחוק של היונקים – כלומר גם שלנו."},
+ {wiki:"Archaeopteryx", q:"Archaeopteryx fossil", where:"גרמניה", name:"ארכיאופטריקס", emoji:"🐦", dino:true, diet:"meat",
+  era:"לפני 150 מיליון שנה", size:"אורך: כחצי מטר", weight:"משקל: כמו עורב",
+  wow:"היו לו נוצות וכנפיים כמו לציפור, אבל גם שיניים וזנב ארוך. הוא עוזר להבין שהציפורים באו מהדינוזאורים."},
+ {wiki:"Iguanodon", q:"Iguanodon skeleton", where:"בלגיה ואנגליה", name:"איגואנודון", emoji:"👍", dino:true, diet:"plant",
+  era:"לפני 125 מיליון שנה", size:"אורך: עד 10 מטר", weight:"משקל: כמו פיל קטן",
+  wow:"במקום אגודל היה לו קוץ חד. הוא היה אחד הדינוזאורים הראשונים שקיבלו שם, לפני כמעט 200 שנה."},
+ {wiki:"Pachycephalosaurus", q:"Pachycephalosaurus skull", where:"צפון אמריקה", name:"פכיצפלוזאורוס", emoji:"⛑️", dino:true, diet:"plant",
+  era:"לפני 68 מיליון שנה", size:"אורך: כ־5 מטר", weight:"משקל: כמו סוס",
+  wow:"עצם הגולגולת שלו הייתה עבה כמו 25 סנטימטר – כמו קסדה טבעית!"},
+ {wiki:"Allosaurus", q:"Allosaurus skeleton", where:"ארצות הברית ופורטוגל", name:"אלוזאורוס", emoji:"🦖", dino:true, diet:"meat",
+  era:"לפני 150 מיליון שנה", size:"אורך: עד 10 מטר", weight:"משקל: כמו מכונית",
+  wow:"הוא היה הצייד הגדול של התקופה שלו, עוד לפני הטירנוזאורוס. היו לו שתי בליטות קטנות מעל העיניים."},
+ {wiki:"Otodus megalodon", q:"Megalodon jaws", where:"בכל העולם – שיניים שלו נמצאות כמעט בכל חוף", name:"מגלודון", emoji:"🦈", dino:false, diet:"meat",
+  era:"עד לפני 3.6 מיליון שנה", size:"אורך: עד 18 מטר", weight:"משקל: כמו 10 פילים",
+  wow:"הכריש הגדול ביותר שחי אי־פעם! שן אחת שלו הייתה גדולה כמו כף יד של מבוגר."},
+ {wiki:"Woolly rhinoceros", q:"Coelodonta skeleton", where:"אירופה ואסיה", name:"קרנף צמרי", emoji:"🦏", dino:false, diet:"plant",
+  era:"עד לפני 14,000 שנה", size:"אורך: כ־4 מטר", weight:"משקל: כמו מכונית גדולה",
+  wow:"הקרן הקדמית שלו הייתה ארוכה עד מטר, והוא השתמש בה כדי לפנות שלג ולמצוא עשב."},
+ {wiki:"Glyptodon", q:"Glyptodon skeleton", where:"דרום אמריקה", name:"גליפטודון", emoji:"🐢", dino:false, diet:"plant",
+  era:"עד לפני 10,000 שנה", size:"אורך: כ־4 מטר", weight:"משקל: כמו מכונית קטנה",
+  wow:"קרוב משפחה ענק של הארמדיל, עם שריון עגול כמו כיפה. הוא היה גדול כמו מכונית קטנה!"},
+ {wiki:"Dunkleosteus", q:"Dunkleosteus skull", where:"צפון אמריקה, אירופה וצפון אפריקה", name:"דנקלאוסטאוס", emoji:"🐟", dino:false, diet:"meat",
+  era:"לפני 365 מיליון שנה", size:"אורך: כ־4 מטר", weight:"משקל: כמו פרה",
+  wow:"דג משוריין עתיק בלי שיניים – במקומן היו לו לוחות עצם חדים כמו מספריים."},
+ {wiki:"Quetzalcoatlus", q:"Quetzalcoatlus skeleton", where:"ארצות הברית – טקסס", name:"קצלקואטלוס", emoji:"🦒", dino:false, diet:"meat",
+  era:"לפני 67 מיליון שנה", size:"מוטת כנפיים: עד 11 מטר", weight:"משקל: כמו שלושה אנשים מבוגרים",
+  wow:"אחד היצורים המעופפים הגדולים ביותר שחיו אי־פעם. כשעמד על הקרקע הוא היה גבוה כמו ג'ירפה!"},
+ {wiki:"Argentinosaurus", q:"Argentinosaurus skeleton", where:"ארגנטינה", name:"ארגנטינוזאורוס", emoji:"🏔️", dino:true, diet:"plant",
+  era:"לפני 95 מיליון שנה", size:"אורך: עד 35 מטר", weight:"משקל: כמו 12 פילים",
+  wow:"אחד מבעלי החיים הגדולים ביותר שהלכו אי־פעם על היבשה. ביצה שלו הייתה בגודל של כדורגל."},
+ {wiki:"Therizinosaurus", q:"Therizinosaurus claw", where:"מונגוליה", name:"תריזינוזאורוס", emoji:"✂️", dino:true, diet:"plant",
+  era:"לפני 70 מיליון שנה", size:"אורך: עד 10 מטר", weight:"משקל: כמו פיל",
+  wow:"היו לו טפרים באורך של כמעט מטר – אבל כנראה הוא השתמש בהם כדי למשוך ענפים, כי הוא אכל צמחים."},
+ {wiki:"Protoceratops", q:"Protoceratops skeleton", where:"מונגוליה וסין", name:"פרוטוצרטופס", emoji:"🐑", dino:true, diet:"plant",
+  era:"לפני 75 מיליון שנה", size:"אורך: כ־2 מטר", weight:"משקל: כמו כבשה גדולה",
+  wow:"מצאו מאובן שלו נאבק בוולוצירפטור – שניהם נקברו בחול באמצע הקרב!"},
+ {wiki:"Titanoboa", q:"Titanoboa skeleton", where:"קולומביה", name:"טיטנובואה", emoji:"🐍", dino:false, diet:"meat",
+  era:"לפני 60 מיליון שנה", size:"אורך: עד 13 מטר", weight:"משקל: כמו מכונית",
+  wow:"הנחש הגדול ביותר שנמצא אי־פעם. הוא חי אחרי שהדינוזאורים הגדולים כבר נעלמו."},
+ {wiki:"Trilobite", q:"Trilobite fossil", where:"בכל העולם – גם בדרום ישראל", name:"טרילוביט", emoji:"🪲", dino:false, diet:"mixed",
+  era:"לפני 520 עד 252 מיליון שנה", size:"גודל: מכמה מילימטרים ועד 70 סנטימטר", weight:"משקל: קל מאוד",
+  wow:"הם חיו בים יותר מ־250 מיליון שנה, והיו מהיצורים הראשונים עם עיניים אמיתיות. היום מוצאים מאובנים שלהם בכל העולם."},
+ {wiki:"Meganeura", q:"Meganeura fossil", where:"צרפת", name:"מגנאורה – שפירית ענקית", emoji:"🪰", dino:false, diet:"meat",
+  era:"לפני 300 מיליון שנה", size:"מוטת כנפיים: כ־70 סנטימטר", weight:"משקל: קל",
+  wow:"שפירית בגודל של נשר קטן! היא עפה ביערות עתיקים הרבה לפני הדינוזאורים."},
+ {wiki:"Megatherium", q:"Megatherium skeleton", where:"דרום אמריקה", name:"מגתריום – עצלן ענק", emoji:"🦥", dino:false, diet:"plant",
+  era:"עד לפני 12,000 שנה", size:"אורך: כ־6 מטר", weight:"משקל: כמו פיל",
+  wow:"קרוב משפחה של העצלן, אבל גדול כמו פיל! הוא יכול היה לעמוד על הרגליים האחוריות כדי להגיע לעלים."},
+ {wiki:"Elasmosaurus", q:"Elasmosaurus skeleton", where:"ארצות הברית – קנזס", name:"אלסמוזאורוס", emoji:"🐉", dino:false, diet:"fish",
+  era:"לפני 80 מיליון שנה", size:"אורך: כ־11 מטר", weight:"משקל: כמו פיל קטן",
+  wow:"זוחל ים שהצוואר שלו היה ארוך יותר מחצי הגוף – בערך 7 מטר של צוואר!"},
+ {wiki:"Carnotaurus", q:"Carnotaurus skeleton", where:"ארגנטינה", name:"קרנוטאורוס", emoji:"🐂", dino:true, diet:"meat",
+  era:"לפני 70 מיליון שנה", size:"אורך: כ־8 מטר", weight:"משקל: כמו מכונית גדולה",
+  wow:"השם שלו פירושו \"שור טורף\", כי היו לו שתי קרניים מעל העיניים. הידיים שלו היו קטנטנות!"},
+ {wiki:"Gallimimus", q:"Gallimimus skeleton", where:"מונגוליה", name:"גלימימוס", emoji:"🏃", dino:true, diet:"plant",
+  era:"לפני 70 מיליון שנה", size:"אורך: כ־6 מטר", weight:"משקל: כמו סוס קטן",
+  wow:"הוא נראה קצת כמו יען ענק, והיה אחד הדינוזאורים המהירים ביותר."},
+ {wiki:"Compsognathus", q:"Compsognathus fossil", where:"גרמניה וצרפת", name:"קומפסוגנתוס", emoji:"🐔", dino:true, diet:"meat",
+  era:"לפני 150 מיליון שנה", size:"אורך: כמטר (רובו זנב)", weight:"משקל: כמו תרנגולת",
+  wow:"אחד הדינוזאורים הקטנים ביותר – בגודל של תרנגולת! הוא צד לטאות קטנות."},
+ {wiki:"Giganotosaurus", q:"Giganotosaurus skeleton", where:"ארגנטינה", name:"גיגנוטוזאורוס", emoji:"🦖", dino:true, diet:"meat",
+  era:"לפני 98 מיליון שנה", size:"אורך: עד 13 מטר", weight:"משקל: כמו שני פילים",
+  wow:"אחד הדינוזאורים הטורפים הגדולים ביותר שהתגלו – אולי אפילו קצת יותר ארוך מהטירנוזאורוס. אבל השניים מעולם לא נפגשו: הם חיו ביבשות שונות ובהפרש של יותר מ־30 מיליון שנה."},
+ {wiki:"Utahraptor", q:"Utahraptor skeleton", where:"ארצות הברית – יוטה", name:"יוטהרפטור", emoji:"🦅", dino:true, diet:"meat",
+  era:"לפני 135 מיליון שנה", size:"אורך: כ־6 מטר", weight:"משקל: כמו דוב קוטב",
+  wow:"הרפטור הגדול ביותר שנמצא. הטופר המעוקל ברגל שלו היה באורך של יותר מ־20 סנטימטר."},
+ {wiki:"Baryonyx", q:"Baryonyx skeleton", where:"אנגליה, ספרד ופורטוגל", name:"בריוניקס", emoji:"🐊", dino:true, diet:"fish",
+  era:"לפני 125 מיליון שנה", size:"אורך: עד 10 מטר", weight:"משקל: כמו מכונית גדולה",
+  wow:"השם שלו פירושו \"טופר כבד\" – לטופר באגודל שלו היה אורך של כ־30 סנטימטר. בבטן של השלד שלו נמצאו קשקשים של דגים, כך שאנחנו יודעים מה הייתה ארוחתו האחרונה."},
+ {wiki:"Apatosaurus", q:"Apatosaurus skeleton", where:"ארצות הברית", name:"אפטוזאורוס", emoji:"🦕", dino:true, diet:"plant",
+  era:"לפני 152 מיליון שנה", size:"אורך: כ־23 מטר", weight:"משקל: כמו 4 פילים",
+  wow:"במשך שנים רבות חוקרים חשבו שהברונטוזאורוס הוא בעצם אפטוזאורוס. היום רבים מהם חושבים שאלה שני סוגים שונים – הוויכוח עוד לא נגמר!"},
+ {wiki:"Oviraptor", q:"Oviraptor skeleton", where:"מונגוליה", name:"אוביראפטור", emoji:"🥚", dino:true, diet:"mixed",
+  era:"לפני 75 מיליון שנה", size:"אורך: כ־2 מטר", weight:"משקל: כמו ילד בן 10",
+  wow:"השם שלו פירושו \"גנב ביצים\", כי מצאו אותו ליד קן. מאוחר יותר התברר שהוא בכלל שמר על הביצים שלו עצמו – קיבל שם רע בלי סיבה!"},
+ {wiki:"Microraptor", q:"Microraptor fossil", where:"סין", name:"מיקרורפטור", emoji:"🪶", dino:true, diet:"meat",
+  era:"לפני 120 מיליון שנה", size:"אורך: כ־80 סנטימטר", weight:"משקל: כמו יונה",
+  wow:"היו לו נוצות ארוכות גם בידיים וגם ברגליים – כמו ארבע כנפיים! לפי המאובנים, הנוצות שלו היו שחורות ונוצצות כמו של עורב."},
+ {wiki:"Deinonychus", q:"Deinonychus skeleton", where:"ארצות הברית", name:"דינוניכוס", emoji:"🦖", dino:true, diet:"meat",
+  era:"לפני 110 מיליון שנה", size:"אורך: כ־3.5 מטר", weight:"משקל: כמו אדם מבוגר",
+  wow:"הגילוי שלו שינה את המדע: הוא הראה שדינוזאורים יכלו להיות זריזים ופעילים, ולא רק זוחלים כבדים ואיטיים. ה\"רפטורים\" בסרטים מבוססים בעיקר עליו."},
+ {wiki:"Maiasaura", q:"Maiasaura skeleton", where:"ארצות הברית – מונטנה", name:"מאיאזאורה", emoji:"🪺", dino:true, diet:"plant",
+  era:"לפני 76 מיליון שנה", size:"אורך: כ־9 מטר", weight:"משקל: כמו פיל קטן",
+  wow:"השם שלה פירושו \"לטאה אם טובה\". נמצאו מושבות שלמות של קינים עם ביצים וגוזלים, וזה מראה שההורים טיפלו בצאצאים שלהם."},
+ {wiki:"Edmontosaurus", q:"Edmontosaurus skeleton", where:"צפון אמריקה", name:"אדמונטוזאורוס", emoji:"🦆", dino:true, diet:"plant",
+  era:"לפני 68 מיליון שנה", size:"אורך: עד 12 מטר", weight:"משקל: כמו פיל",
+  wow:"היה לו מקור שטוח כמו של ברווז, ומאחוריו מאות שיניים לטחינת צמחים. נמצאו אפילו \"מומיות\" שלו עם עקבות של העור!"},
+ {wiki:"Psittacosaurus", q:"Psittacosaurus skeleton", where:"סין ומונגוליה", name:"פסיטקוזאורוס", emoji:"🦜", dino:true, diet:"plant",
+  era:"לפני 120 מיליון שנה", size:"אורך: כ־2 מטר", weight:"משקל: כמו כלב גדול",
+  wow:"השם שלו פירושו \"לטאת תוכי\", בגלל המקור שלו. ממאובן אחד שהשתמר במיוחד הצליחו לגלות אפילו את צבעי העור שלו: גב כהה ובטן בהירה."},
+ {wiki:"Kentrosaurus", q:"Kentrosaurus skeleton", where:"טנזניה", name:"קנטרוזאורוס", emoji:"🦔", dino:true, diet:"plant",
+  era:"לפני 152 מיליון שנה", size:"אורך: כ־5 מטר", weight:"משקל: כמו קרנף",
+  wow:"בן דוד אפריקאי של הסטגוזאורוס. במקום לוחות גדולים, היו לו בעיקר קוצים חדים לאורך הגב והזנב, וגם קוץ על כל כתף."},
+ {wiki:"Dilophosaurus", q:"Dilophosaurus skeleton", where:"ארצות הברית – אריזונה", name:"דילופוזאורוס", emoji:"🦖", dino:true, diet:"meat",
+  era:"לפני 193 מיליון שנה", size:"אורך: כ־7 מטר", weight:"משקל: כמו סוס",
+  wow:"היו לו שתי כרבולות דקות על הראש. בסרטים הוא יורק רעל ויש לו צווארון – אבל אין לזה שום הוכחה, וגם הוא היה גדול בהרבה ממה שמוצג שם."},
+ {wiki:"Coelophysis", q:"Coelophysis skeleton", where:"ארצות הברית – ניו מקסיקו", name:"קואלופיזיס", emoji:"🦎", dino:true, diet:"meat",
+  era:"לפני 215 מיליון שנה", size:"אורך: כ־3 מטר", weight:"משקל: כמו ילד בן 8",
+  wow:"מהדינוזאורים הראשונים. במקום אחד נמצאו מאות שלדים שלו יחד. גולגולת שלו אפילו טסה לחלל במעבורת חלל ב־1998!"},
+ {wiki:"Plateosaurus", q:"Plateosaurus skeleton", where:"גרמניה, שווייץ וצרפת", name:"פלטאוזאורוס", emoji:"🦕", dino:true, diet:"plant",
+  era:"לפני 210 מיליון שנה", size:"אורך: עד 10 מטר", weight:"משקל: כמו מכונית גדולה",
+  wow:"אחד הדינוזאורים הגדולים הראשונים שאכלו צמחים, ואחד שמכירים הכי טוב – נמצאו ממנו יותר מ־100 שלדים."},
+ {wiki:"Mamenchisaurus", q:"Mamenchisaurus skeleton", where:"סין", name:"ממנצ'יזאורוס", emoji:"🦒", dino:true, diet:"plant",
+  era:"לפני 160 מיליון שנה", size:"אורך: עד 26 מטר", weight:"משקל: כמו 4 פילים",
+  wow:"לאחד ממיניו היה אחד הצווארים הארוכים ביותר בטבע – כ־15 מטר, כמעט חצי מאורך הגוף!"},
+ {wiki:"Corythosaurus", q:"Corythosaurus skeleton", where:"קנדה", name:"קוריתוזאורוס", emoji:"⛑️", dino:true, diet:"plant",
+  era:"לפני 77 מיליון שנה", size:"אורך: כ־9 מטר", weight:"משקל: כמו פיל קטן",
+  wow:"השם שלו פירושו \"לטאת קסדה\", בגלל הכרבולת החלולה והעגולה שעל ראשו. כנראה השתמש בה כדי להשמיע קולות רמים."},
+ {wiki:"Styracosaurus", q:"Styracosaurus skeleton", where:"קנדה", name:"סטירקוזאורוס", emoji:"👑", dino:true, diet:"plant",
+  era:"לפני 75 מיליון שנה", size:"אורך: כ־6 מטר", weight:"משקל: כמו קרנף גדול",
+  wow:"על המגן שמאחורי הראש היו לו שישה קוצים ארוכים, כמו כתר, וגם קרן אחת גדולה על האף."},
+ {wiki:"Amargasaurus", q:"Amargasaurus skeleton", where:"ארגנטינה", name:"אמרגזאורוס", emoji:"🦕", dino:true, diet:"plant",
+  era:"לפני 125 מיליון שנה", size:"אורך: כ־10 מטר", weight:"משקל: כמו פיל",
+  wow:"לאורך הצוואר היו לו שתי שורות של קוצים ארוכים. עדיין לא בטוחים אם הם היו חשופים או מכוסים בעור כמו מפרש."},
+ {wiki:"Cryolophosaurus", q:"Cryolophosaurus skeleton", where:"אנטארקטיקה", name:"קריולופוזאורוס", emoji:"🧊", dino:true, diet:"meat",
+  era:"לפני 190 מיליון שנה", size:"אורך: כ־7 מטר", weight:"משקל: כמו סוס",
+  wow:"הדינוזאור הטורף הראשון שנמצא באנטארקטיקה! אז היה שם חם יותר, עם יערות. על הראש הייתה לו כרבולת מוזרה כמו תסרוקת."},
+ {wiki:"Liopleurodon", q:"Liopleurodon fossil", where:"אנגליה וצרפת", name:"ליופלאורודון", emoji:"🌊", dino:false, diet:"meat",
+  era:"לפני 160 מיליון שנה", size:"אורך: כ־7 מטר", weight:"משקל: כמו מכונית גדולה",
+  wow:"זוחל ים עם ראש גדול ושיניים חזקות, ששחה בעזרת ארבעה סנפירים גדולים. היה מהטורפים החזקים בים בתקופתו."},
+ {wiki:"Ichthyosaurus", q:"Ichthyosaurus fossil", where:"אנגליה", name:"איכתיוזאורוס", emoji:"🐬", dino:false, diet:"fish",
+  era:"לפני 195 מיליון שנה", size:"אורך: כ־3 מטר", weight:"משקל: כמו דולפין",
+  wow:"זוחל ים שנראה כמו דולפין והמליט גורים חיים במים. את השלד השלם הראשון של קרוב משפחה שלו מצאה ילדה בשם מרי אנינג – והיא הפכה לאחת מציידות המאובנים החשובות בהיסטוריה."},
+ {wiki:"Plesiosaurus", q:"Plesiosaurus fossil", where:"אנגליה", name:"פלזיוזאורוס", emoji:"🐢", dino:false, diet:"fish",
+  era:"לפני 195 מיליון שנה", size:"אורך: כ־4 מטר", weight:"משקל: כמו פרה",
+  wow:"זוחל ים עם צוואר ארוך, ראש קטן וארבעה סנפירים. גם אותו גילתה מרי אנינג – והיו מדענים שבהתחלה לא האמינו שהוא אמיתי."},
+ {wiki:"Rhamphorhynchus", q:"Rhamphorhynchus fossil", where:"גרמניה", name:"רמפורינכוס", emoji:"🪁", dino:false, diet:"fish",
+  era:"לפני 150 מיליון שנה", size:"מוטת כנפיים: עד 2 מטר", weight:"משקל: קל, כמו שחף",
+  wow:"זוחל מעופף עם זנב ארוך שבקצהו \"מפרש\" קטן בצורת יהלום. השיניים החדות שלו פנו קדימה, מושלמות לתפיסת דגים."},
+ {wiki:"Cave bear", q:"Cave bear skeleton", where:"אירופה", name:"דוב המערות", emoji:"🐻", dino:false, diet:"plant",
+  era:"עד לפני 24,000 שנה", size:"אורך: כ־3 מטר", weight:"משקל: כמו פסנתר גדול",
+  wow:"גדול יותר מרוב הדובים של היום, אבל אכל בעיקר צמחים. במערות באירופה נמצאו אלפי עצמות שלו – והאדם הקדמון חי לצידו."},
+ {wiki:"Irish elk", q:"Irish elk skeleton", where:"אירלנד, אירופה ואסיה", name:"האייל הענק", emoji:"🦌", dino:false, diet:"plant",
+  era:"עד לפני 8,000 שנה", size:"קרניים: רוחב של עד 4 מטר", weight:"משקל: כמו סוס גדול",
+  wow:"לא באמת אייל וגם לא רק אירי – זה צבי ענק. לקרניים שלו היה הרוחב הגדול ביותר שהיה אי־פעם לצבי."},
+ {wiki:"Paraceratherium", q:"Paraceratherium skeleton", where:"אסיה – פקיסטן, מונגוליה וסין", name:"פרצרתריום", emoji:"🦏", dino:false, diet:"plant",
+  era:"לפני 30 מיליון שנה", size:"גובה הכתף: כ־5 מטר", weight:"משקל: כמו 3 פילים",
+  wow:"אחד היונקים היבשתיים הגדולים ביותר שחיו אי־פעם. הוא קרוב משפחה של הקרנף – אבל בלי קרן, ועם צוואר ארוך שהגיע לצמרות העצים."},
+ {wiki:"Deinotherium", q:"Deinotherium skeleton", where:"אירופה, אפריקה ואסיה", name:"דינותריום", emoji:"🐘", dino:false, diet:"plant",
+  era:"עד לפני מיליון שנה", size:"גובה הכתף: כ־4 מטר", weight:"משקל: כמו 2 פילים",
+  wow:"קרוב משפחה של הפיל עם חטים מוזרים שיצאו מהלסת התחתונה ונטו כלפי מטה, כמו ווים."},
+ {wiki:"Phorusrhacos", q:"Phorusrhacos skeleton", where:"ארגנטינה", name:"ציפור האימה", emoji:"🦤", dino:false, diet:"meat",
+  era:"לפני 17 מיליון שנה", size:"גובה: כ־2.5 מטר", weight:"משקל: כמו אדם וחצי",
+  wow:"ציפור ענקית שלא יכלה לעוף, אבל רצה מהר והייתה לה מקור מעוקל וחזק כמו גרזן. היא הייתה מהטורפים הגדולים של דרום אמריקה."},
+ {wiki:"Arthropleura", q:"Arthropleura fossil", where:"אירופה וצפון אמריקה", name:"ארתרופלאורה", emoji:"🐛", dino:false, diet:"plant",
+  era:"לפני 300 מיליון שנה", size:"אורך: עד 2.6 מטר", weight:"משקל: כמו ילד בן 6",
+  wow:"נדל ענק, ארוך יותר מאדם מבוגר! זה בעל החיים חסר עמוד השדרה הגדול ביותר שחי אי־פעם על היבשה."},
+ {wiki:"Helicoprion", q:"Helicoprion fossil", where:"ארצות הברית, רוסיה ואוסטרליה", name:"הליקופריון", emoji:"🌀", dino:false, diet:"meat",
+  era:"לפני 280 מיליון שנה", size:"אורך: עד 8 מטר", weight:"משקל: כמו מכונית גדולה",
+  wow:"דג קרוב לכרישים שהשיניים שלו היו מסודרות בספירלה, כמו מסור עגול. במשך מאה שנה מדענים לא הבינו איפה בכלל הספירלה הזאת ישבה בגוף!"},
+ {wiki:"Ammonoidea", q:"Ammonite fossil", where:"בכל העולם – גם בקיר האמוניטים במצפה רמון", name:"אמוניט", emoji:"🐚", dino:false, diet:"meat",
+  era:"לפני 400 עד 66 מיליון שנה", size:"קוטר הקונכייה: מכמה סנטימטרים ועד 2 מטר", weight:"משקל: מקל מאוד ועד כבד כמו אדם",
+  wow:"קרוב משפחה של התמנון והדיונון שחי בתוך קונכייה מסולסלת. הם נעלמו יחד עם הדינוזאורים, ובמצפה רמון יש קיר סלע מלא במאובנים שלהם."},
+ {wiki:"Sarcosuchus", q:"Sarcosuchus skeleton", where:"ניז'ר ושאר צפון אפריקה", name:"סרקוסוכוס – סופר־תנין", emoji:"🐊", dino:false, diet:"meat",
+  era:"לפני 112 מיליון שנה", size:"אורך: עד 10 מטר", weight:"משקל: כמו פיל",
+  wow:"קרוב משפחה ענק של התנינים, ארוך כמו אוטובוס. כנראה צד דגים וגם דינוזאורים שבאו לשתות מהנהר."},
+ {wiki:"Jaekelopterus", q:"Eurypterid fossil", where:"גרמניה", name:"עקרב ים ענק", emoji:"🦂", dino:false, diet:"meat",
+  era:"לפני 390 מיליון שנה", size:"אורך: כ־2.5 מטר", weight:"משקל: כמו ילד בן 10",
+  wow:"עקרב ים – בעל החיים בעל השלד החיצוני (כמו של חרקים וסרטנים) הגדול ביותר שנמצא אי־פעם. היו לו צבתות גדולות וקוצניות."},
+ {wiki:"Tiktaalik", q:"Tiktaalik fossil", where:"קנדה – האי אלסמיר", name:"טיקטאליק", emoji:"🐟", dino:false, diet:"meat",
+  era:"לפני 375 מיליון שנה", size:"אורך: כ־3 מטר", weight:"משקל: כמו ילד בן 12",
+  wow:"דג עם סנפירים שנראו כמעט כמו רגליים, ועם צוואר! הוא עוזר להבין איך בעלי חיים עברו מהמים אל היבשה."},
+ {wiki:"Lystrosaurus", q:"Lystrosaurus skeleton", where:"אפריקה, הודו, סין ואנטארקטיקה", name:"ליסטרוזאורוס", emoji:"🐖", dino:false, diet:"plant",
+  era:"לפני 250 מיליון שנה", size:"אורך: כמטר", weight:"משקל: כמו חזיר",
+  wow:"הוא שרד את ההכחדה הגדולה ביותר בתולדות כדור הארץ. העובדה שמוצאים אותו גם באפריקה וגם באנטארקטיקה עזרה להוכיח שהיבשות היו פעם מחוברות."},
+ {wiki:"Macrauchenia", q:"Macrauchenia skeleton", where:"דרום אמריקה", name:"מקראוכניה", emoji:"🐪", dino:false, diet:"plant",
+  era:"עד לפני 10,000 שנה", size:"אורך: כ־3 מטר", weight:"משקל: כמו סוס גדול",
+  wow:"נראתה כמו גמל בלי דבשת עם חדק קצר. צ'ארלס דרווין עצמו מצא את המאובנים הראשונים שלה במסעו המפורסם."},
+ {wiki:"Hallucigenia", q:"Hallucigenia fossil", where:"קנדה וסין", name:"הלוסיגניה", emoji:"🪱", dino:false, diet:"mixed",
+  era:"לפני 508 מיליון שנה", size:"אורך: כ־4 סנטימטר", weight:"משקל: קל כמו נוצה",
+  wow:"יצור קטנטן ומשונה עם קוצים על הגב ורגליים דקות. בהתחלה המדענים שחזרו אותו הפוך – עם הקוצים למטה והרגליים למעלה! השם שלו בא מהמילה \"הזיה\"."},
+ {wiki:"Anomalocaris", q:"Anomalocaris fossil", where:"קנדה וסין", name:"אנומלוקריס", emoji:"🦐", dino:false, diet:"meat",
+  era:"לפני 508 מיליון שנה", size:"אורך: עד 40 סנטימטר", weight:"משקל: קל",
+  wow:"אחד הטורפים הגדולים הראשונים בתולדות כדור הארץ. בהתחלה מצאו חלקים שונים שלו בנפרד וחשבו שהם שלושה יצורים שונים – שרימפס, מדוזה וספוג!"}
+];
+
+const DIET = {plant:["🌿 צמחוני","t-plant"], meat:["🍖 טורף","t-meat"], fish:["🐟 אוכל דגים","t-fish"], mixed:["🥣 אוכל הכול","t-mixed"]};
+
+// יצור שהופיע לא יופיע שוב עד שיופיעו לפחות 10 יצורים אחרים
+const GAP = 10;
+let memHistory = [];
+function loadHist(){
+  let hist = memHistory;
+  try { hist = JSON.parse(localStorage.getItem("dino-history") || "[]"); } catch(e){}
+  return hist.filter(n => Number.isInteger(n) && n >= 0 && n < ANIMALS.length);
+}
+function record(i){
+  let hist = loadHist().filter(n => n !== i);
+  hist.push(i);
+  hist = hist.slice(-GAP);
+  memHistory = hist;
+  try { localStorage.setItem("dino-history", JSON.stringify(hist)); } catch(e){}
+}
+function pickIndex(){
+  const recent = loadHist().slice(-GAP);
+  const options = ANIMALS.map((_, n) => n).filter(n => !recent.includes(n));
+  return options[Math.floor(Math.random() * options.length)];
+}
+
+let token = 0;
+async function show(chosen){
+  document.getElementById("share").textContent = "תרצה לשתף את תמיר ועינבר?";
+  const idx = Number.isInteger(chosen) ? chosen : pickIndex();
+  record(idx);
+  const a = ANIMALS[idx];
+  const my = ++token;
+  document.getElementById("name").textContent = a.name;
+  const d = DIET[a.diet];
+  document.getElementById("tags").innerHTML =
+    `<span class="tag t-era">⏳ ${a.era}</span>` +
+    `<span class="tag ${d[1]}">${d[0]}</span>` +
+    (a.dino ? `<span class="tag t-dino">🦕 דינוזאור</span>` : `<span class="tag t-not">❗ לא דינוזאור</span>`);
+  document.getElementById("facts").innerHTML = `<li>📏 ${a.size}</li><li>⚖️ ${a.weight}</li><li>📍 מאובנים נמצאו ב: ${a.where}</li>`;
+  document.getElementById("wow").innerHTML = `<h3>💡 הידעת?</h3>${a.wow}`;
+  const pic = document.getElementById("pic");
+  pic.innerHTML = `<div class="placeholder"><span>${a.emoji}</span>מחפש תמונה של שלד או מאובן…</div>`;
+  const link = "https://en.wikipedia.org/wiki/" + encodeURIComponent(a.wiki.replace(/ /g,"_"));
+  document.getElementById("credit").innerHTML = `לקריאה נוספת: <a href="${link}" target="_blank" rel="noopener">הערך בוויקיפדיה</a>`;
+
+  let found = await fromCommons(a.q);
+  if (!found) found = await fromWikipedia(a.wiki);
+  if (my !== token) return;
+  if (!found){
+    pic.innerHTML = `<div class="placeholder"><span>${a.emoji}</span>אין חיבור לאינטרנט – התמונה לא נטענה</div>`;
+    return;
+  }
+  const img = new Image();
+  img.alt = a.name;
+  img.onload = () => {
+    if (my !== token) return;
+    pic.innerHTML = "";
+    pic.appendChild(img);
+    const c = document.createElement("div");
+    c.className = "caption";
+    c.innerHTML = `תמונה: <a href="${found.page}" target="_blank" rel="noopener">${found.source}</a>`;
+    pic.appendChild(c);
+  };
+  img.src = found.src;
+}
+
+// חיפוש צילום אמיתי (שלד / מאובן) בוויקישיתוף
+async function fromCommons(q){
+  try{
+    const url = "https://commons.wikimedia.org/w/api.php?action=query&format=json&origin=*" +
+      "&generator=search&gsrnamespace=6&gsrlimit=8&gsrsearch=" + encodeURIComponent(q + " filetype:bitmap") +
+      "&prop=imageinfo&iiprop=url|mime&iiurlwidth=900";
+    const j = await (await fetch(url)).json();
+    if (!j.query) return null;
+    const pages = Object.values(j.query.pages)
+      .sort((x,y)=>x.index-y.index)
+      .filter(p => p.imageinfo && /jpeg|png/.test(p.imageinfo[0].mime));
+    if (!pages.length) return null;
+    const p = pages[Math.floor(Math.random()*Math.min(4,pages.length))];
+    return {src:p.imageinfo[0].thumburl || p.imageinfo[0].url, page:p.imageinfo[0].descriptionurl, source:"ויקישיתוף"};
+  }catch(e){ return null; }
+}
+
+// גיבוי: התמונה הראשית של הערך בוויקיפדיה
+async function fromWikipedia(title){
+  try{
+    const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=pageimages&piprop=thumbnail&pithumbsize=900&titles=" + encodeURIComponent(title);
+    const j = await (await fetch(url)).json();
+    const page = Object.values(j.query.pages)[0];
+    const src = page && page.thumbnail && page.thumbnail.source;
+    return src ? {src, page:"https://en.wikipedia.org/wiki/" + encodeURIComponent(title.replace(/ /g,"_")), source:"ויקיפדיה"} : null;
+  }catch(e){ return null; }
+}
+
+document.getElementById("next").addEventListener("click", () => show());
+
+// חיפוש במאגר
+const qInput = document.getElementById("q");
+const resList = document.getElementById("results");
+let matches = [], active = 0;
+const norm = t => t.toLowerCase().replace(/[\u0591-\u05C7"'׳״\-–\s]/g, "");
+function renderResults(){
+  const term = norm(qInput.value);
+  if (!term){ resList.hidden = true; return; }
+  matches = ANIMALS.map((a, i) => i).filter(i => norm(ANIMALS[i].name).includes(term) || norm(ANIMALS[i].wiki).includes(term));
+  matches.sort((x, y) => norm(ANIMALS[y].name).startsWith(term) - norm(ANIMALS[x].name).startsWith(term));
+  active = 0;
+  resList.innerHTML = matches.length
+    ? matches.map((i, k) => `<li data-i="${i}" class="${k === 0 ? "active" : ""}">${ANIMALS[i].emoji} ${ANIMALS[i].name}</li>`).join("")
+    : `<li class="none">לא נמצא יצור בשם הזה</li>`;
+  resList.hidden = false;
+}
+function choose(i){
+  qInput.value = "";
+  resList.hidden = true;
+  qInput.blur();
+  show(i);
+}
+qInput.addEventListener("input", renderResults);
+qInput.addEventListener("keydown", e => {
+  if (resList.hidden || !matches.length) return;
+  if (e.key === "ArrowDown" || e.key === "ArrowUp"){
+    e.preventDefault();
+    active = (active + (e.key === "ArrowDown" ? 1 : -1) + matches.length) % matches.length;
+    [...resList.children].forEach((li, k) => li.classList.toggle("active", k === active));
+    resList.children[active].scrollIntoView({block:"nearest"});
+  } else if (e.key === "Enter"){
+    e.preventDefault();
+    choose(matches[active]);
+  } else if (e.key === "Escape"){
+    resList.hidden = true;
+  }
+});
+resList.addEventListener("mousedown", e => {
+  const li = e.target.closest("li[data-i]");
+  if (li){ e.preventDefault(); choose(Number(li.dataset.i)); }
+});
+qInput.addEventListener("blur", () => setTimeout(() => resList.hidden = true, 150));
+document.getElementById("share").addEventListener("click", () => {
+  document.getElementById("share").textContent = "אבאאא אמאאא ידעתם ש...";
+});
+show();
+</script>
+</body>
+</html>
